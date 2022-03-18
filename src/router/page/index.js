@@ -2,7 +2,7 @@ export default [{
         path: '/login',
         name: '登录页',
         component: () =>
-            import ( /* webpackChunkName: "page" */ '@/page/login/index'),
+            import ( /* webpackChunkName: "page" */ '@/page/login/userlogin'),
         meta: {
             keepAlive: true,
             isTab: false,
@@ -45,12 +45,18 @@ export default [{
     },
     {
         path: '/',
-        name: '主页',
-        redirect: '/wel'
+        name: '欢迎页',
+        component: () =>
+            import ( /* webpackChunkName: "page" */ '@/page/index/wel')
     },
-
     {
-      path: '*',
+        path: '/main',
+        name: '主页',
+        component: () =>
+            import ( /* webpackChunkName: "page" */ '@/page/index/main')
+    },
+    {
+      path: '/:catchAll(.*)',
       redirect: '/404',
     }
 ]

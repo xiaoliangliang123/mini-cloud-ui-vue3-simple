@@ -17,23 +17,37 @@
 import request from '@/router/axios'
 import store from '@/store'
 import qs from 'qs'
+import axios from "axios";
 
-const scope = 'server'
+const scope = 'read'
 
-export const loginByUsername = (username, password, code, randomStr) => {
-  const grant_type = 'password'
-  let dataObj = qs.stringify({'username': username, 'password': password})
+export const loginByUsername = (uname, pwd) => {
+  const grant_type = 'password';
+  const client_id = 'test-auth-client';
+  const client_secret = '123';
+  const username = uname;
+  const password = pwd;
+  let dataObj = qs.stringify({'username': username, 'password': password,grant_type:grant_type,client_id:client_id,client_secret:client_secret})
 
-  return request({
-    url: '/auth/oauth/token',
+  return axios({
     headers: {
-      isToken: false,
-      Authorization: 'Basic cGlnOnBpZw=='
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     method: 'post',
-    params: {randomStr, code, grant_type, scope},
-    data: dataObj
+    url: '/auth/oauth/token?',
+    data:dataObj
   })
+  // return request({
+  //   url: '/auth/oauth/token',
+  //   headers: {
+  //     isToken: false,
+  //     Authorization: 'Basic cGlnOnBpZw==',
+  //     'Content-Type': 'application/x-www-form-urlencoded'
+  //   },
+  //   method: 'post',
+  //   params: { grant_type, scope,client_id,client_secret},
+  //   data: dataObj
+  // })
 }
 
 export const loginByMobile = (mobile, code) => {

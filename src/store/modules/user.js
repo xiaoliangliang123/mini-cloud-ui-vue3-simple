@@ -22,13 +22,9 @@ const user = {
   actions: {
     // 根据用户名登录
     LoginByUsername({commit}, userInfo) {
-      const user = encryption({
-        data: userInfo,
-        key: 'thanks,pig4cloud',
-        param: ['password']
-      })
       return new Promise((resolve, reject) => {
-        loginByUsername(user.username, user.password, user.code, user.randomStr).then(response => {
+        loginByUsername(userInfo.username, userInfo.password).then(response => {
+          debugger
           const data = response.data
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)

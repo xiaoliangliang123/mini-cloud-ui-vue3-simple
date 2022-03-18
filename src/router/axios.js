@@ -2,7 +2,7 @@ import axios from "axios";
 import { serialize } from "@/util/util";
 import NProgress from "nprogress"; // progress bar
 import errorCode from "@/const/errorCode";
-import { Message, MessageBox } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import "nprogress/nprogress.css";
 import qs from "qs";
 import store from "@/store"; // progress bar style
@@ -21,11 +21,16 @@ NProgress.configure({
 // HTTPrequest拦截
 axios.interceptors.request.use(
   config => {
+
     NProgress.start(); // start progress bar
     const isToken = (config.headers || {}).isToken === false;
     let token = store.getters.access_token;
+    debugger
     if (token && !isToken) {
       config.headers["Authorization"] = "Bearer " + token; // token
+    }
+    if(config.headers.contentType){
+        config.headers["content-Type"] = config.headers.contentType;
     }
     // headers中配置serialize为true开启序列化
     if (config.methods === "post" && config.headers.serialize) {
@@ -56,7 +61,7 @@ axios.interceptors.response.use(
 
     // 后台定义 424 针对令牌过去的特殊响应码
     if (status === 424) {
-      MessageBox.confirm("令牌状态已过期，请点击重新登录", "系统提示", {
+      ElMessageBox.confirm("令牌状态已过期，请点击重新登录", "系统提示", {
         confirmButtonText: "重新登录",
         cancelButtonText: "取消",
         type: "warning"
@@ -72,7 +77,7 @@ axios.interceptors.response.use(
     }
 
     if (status !== 200 || res.data.code === 1) {
-      Message({
+      ElMessage({
         message: message,
         type: "error"
       });
