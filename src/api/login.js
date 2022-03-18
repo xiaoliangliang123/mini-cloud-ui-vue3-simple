@@ -86,7 +86,7 @@ export const getUserInfo = () => {
 export const logout = () => {
   return request({
     url: '/auth/token/logout',
-    method: 'post'
+    method: 'delete'
   })
 }
 
