@@ -55,7 +55,7 @@ export default {
     return {
       loginForm: {
         username: "admin",
-        password: "123456",
+        password: "admin",
         code: "",
         randomStr: ""
       },
@@ -97,7 +97,7 @@ export default {
           this.$store
               .dispatch("LoginByUsername", this.loginForm)
               .then(() => {
-                debugger
+
                 this.$router.push({path: "/main"});
               })
               .catch(() => {

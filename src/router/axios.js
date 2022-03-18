@@ -25,12 +25,9 @@ axios.interceptors.request.use(
     NProgress.start(); // start progress bar
     const isToken = (config.headers || {}).isToken === false;
     let token = store.getters.access_token;
-    debugger
+
     if (token && !isToken) {
       config.headers["Authorization"] = "Bearer " + token; // token
-    }
-    if(config.headers.contentType){
-        config.headers["content-Type"] = config.headers.contentType;
     }
     // headers中配置serialize为true开启序列化
     if (config.methods === "post" && config.headers.serialize) {

@@ -24,10 +24,11 @@ const user = {
     LoginByUsername({commit}, userInfo) {
       return new Promise((resolve, reject) => {
         loginByUsername(userInfo.username, userInfo.password).then(response => {
-          debugger
+
           const data = response.data
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_USER_INFO', data.user_info)
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -61,7 +62,6 @@ const user = {
           commit('SET_ACCESS_TOKEN', '')
           commit('SET_REFRESH_TOKEN', '')
           commit('SET_ROLES', [])
-          commit('DEL_ALL_TAG')
           commit('CLEAR_LOCK')
           resolve()
         }).catch(error => {
@@ -78,7 +78,6 @@ const user = {
         commit('SET_ACCESS_TOKEN', '')
         commit('SET_REFRESH_TOKEN', '')
         commit('SET_ROLES', [])
-        commit('DEL_ALL_TAG')
         commit('CLEAR_LOCK')
         resolve()
       })
