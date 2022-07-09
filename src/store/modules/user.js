@@ -1,12 +1,15 @@
 import {getStore, setStore} from '@/util/store'
-import {encryption} from '@/util/util'
 import {loginByUsername, logout, refreshToken} from '@/api/login'
 
 
 const user = {
   state: {
-    userInfo: {},
-    permissions: {},
+    userInfo: getStore({
+      name: 'userInfo'
+    }) || {},
+    permissions: getStore({
+      name: 'permissions'
+    }) || [],
     roles: [],
     menu: getStore({
       name: 'menu'
@@ -24,6 +27,7 @@ const user = {
     LoginByUsername({commit}, userInfo) {
       return new Promise((resolve, reject) => {
         loginByUsername(userInfo.username, userInfo.password).then(response => {
+
 
           const data = response.data
           commit('SET_ACCESS_TOKEN', data.access_token)
@@ -91,7 +95,7 @@ const user = {
       setStore({
         name: 'access_token',
         content: state.access_token,
-        type: 'session'
+        type: 'storage'
       })
     },
     SET_REFRESH_TOKEN: (state, rfToken) => {
@@ -99,11 +103,18 @@ const user = {
       setStore({
         name: 'refresh_token',
         content: state.refresh_token,
-        type: 'session'
+        type: 'storage'
       })
     },
     SET_USER_INFO: (state, userInfo) => {
+
+
       state.userInfo = userInfo
+      setStore({
+        name: 'userInfo',
+        content: userInfo,
+        type: 'storage'
+      })
     },
     SET_MENU: (state, params = {}) => {
       let {menu, type} = params;
@@ -111,7 +122,7 @@ const user = {
       setStore({
         name: 'menu',
         content: menu,
-        type: 'session'
+        type: 'storage'
       })
     },
     SET_MENU_ALL: (state, menuAll) => {

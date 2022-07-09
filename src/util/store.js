@@ -20,8 +20,14 @@ export const setStore = (params = {}) => {
     type: type,
     datetime: new Date().getTime()
   }
-  if (type) window.sessionStorage.setItem(name, JSON.stringify(obj));
-  else window.localStorage.setItem(name, JSON.stringify(obj));
+
+  if (type =='session') {
+
+    window.sessionStorage.setItem(name, JSON.stringify(obj));
+  }
+  else {
+    window.localStorage.setItem(name, JSON.stringify(obj));
+  }
 }
 /**
  * 获取localStorage

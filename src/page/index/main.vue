@@ -81,7 +81,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import store from "@/store";
+import store from "@/store"
 
 export default {
   name: "main",
@@ -103,14 +103,11 @@ export default {
       });
     }
   },
-  computed: {
-    ...mapState({
-      userInfo: state => state.user.userInfo
-    })
-  },
+
   created() {
-    if(this.userInfo.username!=null){
-      this.username = this.userInfo.username
+
+    if(store.state.user.userInfo.username!=null){
+      this.username = store.state.user.userInfo.username
     }
   }
 }
