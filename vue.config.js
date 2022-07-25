@@ -14,6 +14,7 @@ module.exports = defineConfig({
       '/': {
         target: url,
         ws: false,
+        changeOrigin: true,
         pathRewrite: {
           '^/': '/'
         }

@@ -34,7 +34,7 @@ export const loginByUsername = (uname, pwd) => {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     method: 'post',
-    url: '/auth/oauth/token?',
+    url: '/telnet-1-login/oauth/token?',
     data:dataObj
   })
   // return request({
