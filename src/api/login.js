@@ -29,12 +29,12 @@ export const loginByUsername = (uname, pwd) => {
   const password = pwd;
   let dataObj = qs.stringify({'username': username, 'password': password,grant_type:grant_type,client_id:client_id,client_secret:client_secret})
 
-  return axios({
+  return request({
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     method: 'post',
-    url: '/telnet-1-login/oauth/token?',
+    url: '/tanent/tanent/login?',
     data:dataObj
   })
   // return request({
@@ -45,6 +45,7 @@ export const loginByUsername = (uname, pwd) => {
   //     'Content-Type': 'application/x-www-form-urlencoded'
   //   },
   //   method: 'post',
+  //   // params: { grant_type, scope,client_id,client_secret},
   //   params: { grant_type, scope,client_id,client_secret},
   //   data: dataObj
   // })
