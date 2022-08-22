@@ -8,6 +8,7 @@
     "lint": "vunpme-cli-service lint"
   },
   "dependencies": {
+    "@smallwei/avue": "^2.9.13",
     "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "element-plus": "^2.1.3",
