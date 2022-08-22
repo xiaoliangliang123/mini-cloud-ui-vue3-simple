@@ -15,15 +15,19 @@
           <el-menu-item index="2" >订单管理</el-menu-item>
           <el-menu-item index="3" >商品管理</el-menu-item>
           <el-menu-item index="4">统计分析</el-menu-item>
+          <el-menu-item index="5">
+
+                <span v-if="username=='游客'"><router-link to="/login">登录</router-link></span>
+                <span v-if="username!='游客'" @click="logout" style="color:#2d8cf0;text-decoration-line: underline">退出</span>
+
+          </el-menu-item>
         </el-menu>
       </el-header>
       <el-container>
         <el-aside width="200px">
           <el-menu
               default-active="2"
-              class="el-menu-vertical-demo"
-
-          >
+              class="el-menu-vertical-demo">
             <el-sub-menu index="1">
               <template #title>
                 <el-icon><location /></el-icon>
@@ -31,7 +35,7 @@
               </template>
               <el-menu-item-group >
                 <el-menu-item index="1-1">用户管理</el-menu-item>
-                <el-menu-item index="1-2">角色管理</el-menu-item>
+                <el-menu-item index="1-2"  @click="goTo('/role/user_role_list')">角色管理</el-menu-item>
                 <el-menu-item index="1-3">部门管理</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
@@ -65,12 +69,7 @@
             </el-breadcrumb>
           </div>
           <div>
-            <h1>
-              欢迎<span style="color: #2d8cf0">{{username}}</span>访问mini-cloud
-              <span v-if="username=='游客'"><router-link to="/login">登录</router-link></span>
-              <span v-if="username!='游客'" @click="logout" style="color:#2d8cf0;text-decoration-line: underline">退出</span>
-
-            </h1>
+            <router-view></router-view>
           </div>
 
         </el-main>
@@ -101,7 +100,11 @@ export default {
           this.$router.push({path: "/login"});
         });
       });
+    },
+    goTo(path){
+      this.$router.push(path);
     }
+
   },
 
   created() {

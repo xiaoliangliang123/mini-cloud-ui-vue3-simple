@@ -22,33 +22,20 @@ import axios from "axios";
 const scope = 'read'
 
 export const loginByUsername = (uname, pwd) => {
-  const grant_type = 'password';
-  const client_id = 'test-auth-client';
-  const client_secret = '123';
+
   const username = uname;
   const password = pwd;
-  let dataObj = qs.stringify({'username': username, 'password': password,grant_type:grant_type,client_id:client_id,client_secret:client_secret})
+  let dataObj = qs.stringify({'username': username, 'password': password})
 
   return request({
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     method: 'post',
-    url: '/tanent/tanent/login?',
+    url: '/tenant-1-login/tenant/login',
     data:dataObj
   })
-  // return request({
-  //   url: '/auth/oauth/token',
-  //   headers: {
-  //     isToken: false,
-  //     Authorization: 'Basic cGlnOnBpZw==',
-  //     'Content-Type': 'application/x-www-form-urlencoded'
-  //   },
-  //   method: 'post',
-  //   // params: { grant_type, scope,client_id,client_secret},
-  //   params: { grant_type, scope,client_id,client_secret},
-  //   data: dataObj
-  // })
+
 }
 
 export const loginByMobile = (mobile, code) => {
