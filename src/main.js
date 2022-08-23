@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import Avue  from '@smallwei/avue';
+import Avue from '@smallwei/avue';
 import '@smallwei/avue/lib/index.css';
 
 

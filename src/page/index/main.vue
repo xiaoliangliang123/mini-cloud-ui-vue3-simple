@@ -3,14 +3,13 @@
     <el-container>
       <el-header>
         <el-menu
-            :default-active="1"
+            :default-active="active"
             class="el-menu-demo"
             mode="horizontal"
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
-            @select="handleSelect"
-        >
+         >
           <el-menu-item index="1">系统管理</el-menu-item>
           <el-menu-item index="2" >订单管理</el-menu-item>
           <el-menu-item index="3" >商品管理</el-menu-item>
@@ -26,11 +25,11 @@
       <el-container>
         <el-aside width="200px">
           <el-menu
-              default-active="2"
+              default-active="1"
               class="el-menu-vertical-demo">
             <el-sub-menu index="1">
               <template #title>
-                <el-icon><location /></el-icon>
+                <el-icon> </el-icon>
                 <span>系统管理</span>
               </template>
               <el-menu-item-group >
@@ -41,7 +40,7 @@
             </el-sub-menu>
             <el-sub-menu index="2">
               <template #title>
-                <el-icon><location /></el-icon>
+                <el-icon> </el-icon>
                 <span>订单管理</span>
               </template>
               <el-menu-item-group >
@@ -51,7 +50,7 @@
             </el-sub-menu>
             <el-sub-menu index="3">
               <template #title>
-                <el-icon><location /></el-icon>
+                <el-icon> </el-icon>
                 <span>商品管理</span>
               </template>
               <el-menu-item-group >
@@ -62,12 +61,7 @@
           </el-menu>
         </el-aside>
         <el-main>
-          <div>
-            <el-breadcrumb :separator-icon="ArrowRight">
-              <el-breadcrumb-item >系统管理</el-breadcrumb-item>
-              <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-            </el-breadcrumb>
-          </div>
+
           <div>
             <router-view></router-view>
           </div>
@@ -83,9 +77,10 @@ import {mapState} from 'vuex'
 import store from "@/store"
 
 export default {
-  name: "main",
+  name: "home",
   data() {
     return {
+      active: "1",
       username:'游客'
     }
   },

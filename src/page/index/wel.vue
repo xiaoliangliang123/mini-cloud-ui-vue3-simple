@@ -1,8 +1,8 @@
 <template>
 
-  <dev>
+  <div>
     <router-link to="/login">登录</router-link>
-  </dev>
+  </div>
 </template>
 
 <script>

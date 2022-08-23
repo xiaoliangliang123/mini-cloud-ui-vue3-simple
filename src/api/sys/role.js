@@ -7,3 +7,17 @@ export function queryList(query) {
         params: query
     })
 }
+export function get(id) {
+    return request({
+        url: '/upms/role/'+id,
+        method: 'get',
+    })
+}
+
+export function saveOrEdit(obj) {
+    return request({
+        url: '/upms/role',
+        method: 'post',
+        params: obj
+    })
+}

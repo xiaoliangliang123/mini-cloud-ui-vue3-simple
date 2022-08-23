@@ -31,13 +31,13 @@ axios.interceptors.request.use(
         config.headers["version"] = "default " ; // 开发环境隔离
 
         // headers中配置serialize为true开启序列化
-        if (config.methods === "post" && config.headers.serialize) {
+        if ((config.methods === "post"||config.methods === "put") && config.headers.serialize) {
             config.data = serialize(config.data);
             delete config.data.serialize;
         }
 
         // 处理get 请求的数组 springmvc 可以处理
-        if (config.method === "get") {
+        if (config.method === "get"||config.method === "delete") {
             config.paramsSerializer = function (params) {
                 return qs.stringify(params, {arrayFormat: "repeat"});
             };
