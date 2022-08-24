@@ -23,6 +23,7 @@ axios.interceptors.request.use(
     config => {
 
         NProgress.start(); // start progress bar
+
         const isToken = (config.headers || {}).isToken === false;
         let token = store.getters.access_token;
         if (token && !isToken) {
@@ -31,7 +32,7 @@ axios.interceptors.request.use(
         config.headers["version"] = "default " ; // 开发环境隔离
 
         // headers中配置serialize为true开启序列化
-        if ((config.methods === "post"||config.methods === "put") && config.headers.serialize) {
+        if (config.method === "post" && config.headers.serialize) {
             config.data = serialize(config.data);
             delete config.data.serialize;
         }
@@ -90,5 +91,77 @@ axios.interceptors.response.use(
         return Promise.reject(new Error(error));
     }
 );
+
+/**
+* GET方式请求
+*/
+export function get(url, param) {
+    if (typeof (param) != "undefined" && param != null) {
+        url = url + "?" + qs.stringify(param);
+    }
+    return new Promise((resolve, reject) => {
+        axios.get(url).then(
+            response => {
+                resolve(response.data);
+            }
+        ).catch(
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
+
+export function post(url, param) {
+
+
+    // 配置请求头
+    let config = { headers: { 'Content-Type': 'application/json;charset=UTF-8' } };
+    return new Promise((resolve, reject) => {
+        axios.post(url, param, config).then(
+            response => {
+                resolve(response.data);
+            }
+        ).catch(
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
+
+export function put(url, param) {
+    // 配置请求头
+    let config = { headers: { 'Content-Type': 'application/json;charset=UTF-8' } };
+    return new Promise((resolve, reject) => {
+        axios.put(url, param, config).then(
+            response => {
+                resolve(response.data);
+            }
+        ).catch(
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
+
+export function del(url, param) {
+    if (typeof (param) != "undefined" && param != null) {
+        url = url + "?" + qs.stringify(param);
+    }
+    let config = { headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+    return new Promise((resolve, reject) => {
+        axios.delete(url, config).then(
+            response => {
+                resolve(response.data);
+            }
+        ).catch(
+            (error) => {
+                reject(error);
+            }
+        );
+    });
+}
 
 export default axios;

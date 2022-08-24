@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import {saveOrEdit} from "@/api/sys/role"
-import { ElMessage } from 'element-plus'
+import {getObj, saveOrEdit} from "@/api/sys/role"
+import { ElNotification} from 'element-plus'
 
 export default {
   name: "user_role_add",
@@ -34,36 +34,58 @@ export default {
     return {
 
       roleForm: {
-        roleId:'',
-        roleName:'',
-        roleCode:'',
-        roleDesc:''
+        roleId: '',
+        roleName: '',
+        roleCode: '',
+        roleDesc: ''
       }
     }
   },
   created() {
     debugger
     this.roleForm.roleId = this.$route.params.roleId;
-    if(this.roleForm.roleId =='new'){
+    if (this.roleForm.roleId == 'new') {
       this.roleForm.roleId = null;
+    }else {
+      this.getObj();
     }
+
   },
-  methods:{
-    backToList(){
+  methods: {
+
+
+    getObj() {
+      let that = this;
+      getObj(this.roleForm.roleId).then(response => {
+        that.roleForm.roleId = response.data.roleId
+        that.roleForm.roleName = response.data.roleName;
+        that.roleForm.roleCode = response.data.roleCode;
+        that.roleForm.roleDesc = response.data.roleDesc;
+      }).catch(err=>{
+        console.log(err)
+      })
+    },
+    backToList() {
       this.$router.push('/role/user_role_list');
     },
-    saveOrEdit(){
+    success(title){
+      ElNotification({
+        title: title,
+        message: "操作成功",
+        position: 'bottom-right',
+        type: 'success'
+      })
+    },
+    saveOrEdit() {
       let that = this;
-      saveOrEdit(that.roleForm).then(response=>{
-        if(response.status ==200){
-          this.roleForm.roleId = response.data;
-          ElMessage({
-            message: '操作成功',
-            type: 'success',
-          })
+      saveOrEdit(this.roleForm).then(response => {
+        debugger
+        if (response.status == 200) {
+          that.roleForm.roleId = response.data;
+          that.success('保存成功');
         }
         console.log(JSON.stringify(response));
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err)
       });
     }
