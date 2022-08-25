@@ -33,7 +33,8 @@ export const loginByUsername = (uname, pwd) => {
     },
     method: 'post',
     url: '/tenant-1-login/tenant/login',
-    data:dataObj
+    data:dataObj,
+    isToken: false
   })
 
 }

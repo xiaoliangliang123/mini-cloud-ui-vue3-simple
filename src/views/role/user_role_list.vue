@@ -17,6 +17,18 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-pagination
+              v-model:currentPage="page.currentPage"
+              v-model:page-size="page.pageSize"
+              :page-sizes="[100, 200, 300, 400]"
+              :small="page.small"
+              :disabled="page.disabled"
+              :background="page.background"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="page.total"
+
+          />
+
         </el-main>
       </el-container>
 
@@ -35,12 +47,15 @@ export default {
     return {
       tableData: [],
       page: {
-        total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 20 // 每页显示多少条
+        total: 0,
+        currentPage: 1,
+        pageSize: 20 ,
+        small: false,
+        background: false,
+        disabled: false
+
       },
-      form: {},
-      listLoading: true,
+
 
     }
   },
@@ -97,7 +112,11 @@ export default {
     queryRoles() {
       let that = this;
       queryList().then(response => {
+        debugger
         that.tableData = response.data.data;
+        that.page.total = response.data.total;
+        that.page.pageSize = response.data.size;
+        that.page.currentPage = response.data.page;
       }).catch(err => {
         console.log(err)
       });
