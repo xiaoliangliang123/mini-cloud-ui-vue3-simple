@@ -17,7 +17,6 @@
 import request from '@/router/axios'
 import store from '@/store'
 import qs from 'qs'
-import axios from "axios";
 
 const scope = 'read'
 

@@ -24,10 +24,15 @@ axios.interceptors.request.use(
 
         NProgress.start(); // start progress bar
 
-        const isToken = (config.headers || {}).isToken === false;
+        let isToken = (config.headers || {}).isToken ;
+        if(typeof(isToken) == "undefined"){
+            isToken = true ;
+        }
         let token = store.getters.access_token;
-        if (token && !isToken) {
+        if (token && isToken) {
             config.headers["Authorization"] = "Bearer " + token; // token
+        }else {
+            config.headers["Authorization"] = null;
         }
         config.headers["version"] = "default " ; // 开发环境隔离
 
