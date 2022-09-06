@@ -13,6 +13,11 @@ export default [{
             path: '/role/user_role_add/:roleId',
             name: '角色添加/编辑',
             component: () => import ( /* webpackChunkName: "page" */ '@/views/role/user_role_add')
+        },
+        {
+            path: '/org/org_list',
+            name: '组织机构',
+            component: () => import ( /* webpackChunkName: "page" */ '@/views/org/org_list')
         }
     ]
 }

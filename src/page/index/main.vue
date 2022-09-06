@@ -35,7 +35,7 @@
               <el-menu-item-group >
                 <el-menu-item index="1-1">用户管理</el-menu-item>
                 <el-menu-item index="1-2"  @click="goTo('/role/user_role_list')">角色管理</el-menu-item>
-                <el-menu-item index="1-3">部门管理</el-menu-item>
+                <el-menu-item index="1-3"  @click="goTo('/org/org_list')">部门管理</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
             <el-sub-menu index="2">
@@ -73,11 +73,9 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import store from "@/store"
 
 export default {
-  name: "home",
   data() {
     return {
       active: "1",
