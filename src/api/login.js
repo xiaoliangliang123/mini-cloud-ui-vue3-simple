@@ -28,12 +28,12 @@ export const loginByUsername = (uname, pwd) => {
 
   return request({
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
+      isToken: false
     },
     method: 'post',
     url: '/tenant-1-login/tenant/login',
     data:dataObj,
-    isToken: false
   })
 
 }

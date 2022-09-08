@@ -42,7 +42,7 @@ export default {
     }
   },
   created() {
-    debugger
+
     this.roleForm.roleId = this.$route.params.roleId;
     if (this.roleForm.roleId == 'new') {
       this.roleForm.roleId = null;
@@ -79,7 +79,7 @@ export default {
     saveOrEdit() {
       let that = this;
       saveOrEdit(this.roleForm).then(response => {
-        debugger
+
         if (response.status == 200) {
           that.roleForm.roleId = response.data;
           that.success('保存成功');

@@ -52,8 +52,8 @@
 
 <script>
 import {queryTagList} from "@/api/sys/tag"
-import {saveOrEdit, queryOrgList, getOrgById,removeOrgById} from "@/api/sys/org"
-import {ElNotification} from "element-plus";
+import {saveOrEdit, queryOrgList, getOrgById, removeOrgById} from "@/api/sys/org"
+import {ElMessageBox, ElNotification} from "element-plus";
 
 export default {
   name: "org_list",
@@ -168,7 +168,7 @@ export default {
 
     refreshTreeNode(orgId) {
 
-      debugger
+
       let node = this.$refs.tree.getNode(orgId)
       if (node) {
         node.loaded = false
@@ -195,21 +195,34 @@ export default {
         console.log(err);
       });
     },
-    remove(){
+    remove() {
       let that = this;
       if (this.orgFormData.orgId == null) {
         this.failed("操作失败", "请先选择一个节点");
         return;
       }
-      removeOrgById(this.orgFormData.orgId).then(res=>{
+      ElMessageBox.confirm(
+          '点击确认将删除该条数据，且无法恢复，是否继续?',
+          '提示',
+          {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }
+      )
+          .then(() => {
+            removeOrgById(this.orgFormData.orgId).then(res => {
 
-        debugger
-        that.refreshTreeNode(that.orgFormData.orgParentId);
-        that.addOrg();
-        that.success("操作成功" );
-      }).catch(err=>{
-        that.failed("操作失败",err);
-      });
+              console.log(res);
+              that.refreshTreeNode(that.orgFormData.orgParentId);
+              that.addOrg();
+              that.success("操作成功");
+            }).catch(err => {
+              that.failed("操作失败", err);
+            });
+          });
+
+
     }
   }
 }

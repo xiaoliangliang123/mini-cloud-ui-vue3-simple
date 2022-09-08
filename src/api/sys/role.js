@@ -7,6 +7,13 @@ export function queryList(query) {
         params: query
     })
 }
+
+export function queryAllRoles() {
+    return request({
+        url: '/upms/role/all',
+        method: 'get',
+    })
+}
 export function getObj(id) {
     return request({
         url: '/upms/role/'+id,

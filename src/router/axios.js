@@ -21,7 +21,7 @@ NProgress.configure({
 // HTTPrequest拦截
 axios.interceptors.request.use(
     config => {
-
+        debugger
         NProgress.start(); // start progress bar
 
         let isToken = (config.headers || {}).isToken ;
@@ -81,7 +81,7 @@ axios.interceptors.response.use(
             return;
         }
 
-        if (status !== 200 || res.data.code === 1) {
+        if (status !== 200 ) {
             ElMessage({
                 message: message,
                 type: "error"

@@ -7,13 +7,17 @@
           <el-button type="success" @click="handleAdd()">新建</el-button>
 
           <el-table :data="tableData" style="width: 100%">
-            <el-table-column prop="roleName" label="角色名称" width="180"/>
-            <el-table-column prop="roleCode" label="角色编码" width="180"/>
-            <el-table-column prop="roleDesc" label="角色描述" width="220"/>
+            <el-table-column  label="用户头像" width="120">
+              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
+            </el-table-column>
+            <el-table-column prop="username" label="用户名称" width="120"/>
+            <el-table-column prop="realname" label="用户实名" width="120"/>
+            <el-table-column prop="nickname" label="用户昵称" width="120"/>
+            <el-table-column prop="mobile"  label="手机号" width="120"/>
             <el-table-column fixed="right" label="操作" width="220">
               <template #default="scope" >
-                <el-button v-if="scope.row.roleCode!='SUPER_ADMIN'" link type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
-                <el-button v-if="scope.row.roleCode!='SUPER_ADMIN'" link type="primary" size="small" @click="handleDel(scope.row)">删除</el-button>
+                <el-button link type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
+                <el-button link type="primary" size="small" @click="handleDel(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -34,15 +38,15 @@
 
     </div>
   </div>
+
 </template>
 
-
 <script>
-import {del, queryList} from "@/api/sys/role"
-import {ElNotification, ElMessageBox} from 'element-plus'
+import {ElMessageBox, ElNotification} from "element-plus";
+import {del, queryUserList} from "@/api/sys/user";
 
 export default {
-  name: "user_role_list",
+  name: "user_list",
   data() {
     return {
       tableData: [],
@@ -59,19 +63,18 @@ export default {
 
     }
   },
-  created() {
-    this.queryRoles();
-  },
+
   methods: {
     goTo(path) {
       this.$router.push(path);
     },
     handleAdd() {
-      this.goTo('/role/user_role_add/new');
+      this.goTo('/user/user_add/new');
     },
     handleEdit(row) {
-      this.goTo('/role/user_role_add/' + row.roleId);
+      this.goTo('/user/user_add/' + row.roleId);
     },
+
     handleDel(row) {
 
       let that = this;
@@ -85,14 +88,14 @@ export default {
           }
       )
           .then(() => {
-            del(row.roleId).then(response=>{
+            del(row.roleId).then(response => {
 
-              if(response.status==200){
+              if (response.status == 200) {
                 that.success('删除成功');
               }
               that.queryRoles();
-            }).catch(err=>{
-
+            }).catch(err => {
+               console.log(err);
             });
 
           })
@@ -101,7 +104,7 @@ export default {
           })
 
     },
-    success(title){
+    success(title) {
       ElNotification({
         title: title,
         message: "操作成功",
@@ -109,9 +112,9 @@ export default {
         type: 'success'
       })
     },
-    queryRoles() {
+    queryUsers() {
       let that = this;
-      queryList().then(response => {
+      queryUserList().then(response => {
 
         that.tableData = response.data.data;
         that.page.total = response.data.total;
@@ -122,10 +125,13 @@ export default {
       });
     }
   },
-
-
-
-
+  created() {
+    this.queryUsers();
+  }
 }
 </script>
 
+<style scoped>
+
+
+</style>

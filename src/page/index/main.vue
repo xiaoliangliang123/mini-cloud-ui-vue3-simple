@@ -33,7 +33,7 @@
                 <span>系统管理</span>
               </template>
               <el-menu-item-group >
-                <el-menu-item index="1-1">用户管理</el-menu-item>
+                <el-menu-item index="1-1" @click="goTo('/user/user_list')">用户管理</el-menu-item>
                 <el-menu-item index="1-2"  @click="goTo('/role/user_role_list')">角色管理</el-menu-item>
                 <el-menu-item index="1-3"  @click="goTo('/org/org_list')">部门管理</el-menu-item>
               </el-menu-item-group>

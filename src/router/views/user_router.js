@@ -18,6 +18,16 @@ export default [{
             path: '/org/org_list',
             name: '组织机构',
             component: () => import ( /* webpackChunkName: "page" */ '@/views/org/org_list')
+        },
+        {
+            path: '/user/user_list',
+            name: '用户列表',
+            component: () => import ( /* webpackChunkName: "page" */ '@/views/user/user_list')
+        },
+        {
+            path: '/user/user_add/:userId',
+            name: '用户添加',
+            component: () => import ( /* webpackChunkName: "page" */ '@/views/user/user_add')
         }
     ]
 }
