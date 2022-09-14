@@ -21,7 +21,7 @@ NProgress.configure({
 // HTTPrequest拦截
 axios.interceptors.request.use(
     config => {
-        debugger
+
         NProgress.start(); // start progress bar
 
         let isToken = (config.headers || {}).isToken ;

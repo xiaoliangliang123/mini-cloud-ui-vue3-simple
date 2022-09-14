@@ -7,8 +7,10 @@
           <el-button type="success" @click="handleAdd()">新建</el-button>
 
           <el-table :data="tableData" style="width: 100%">
-            <el-table-column  label="用户头像" width="120">
-              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
+            <el-table-column prop="" label="用户头像" width="120">
+              <template #default="scope">
+              <el-avatar :src="`/files/files?filename=${scope.row.headimg}`"/>
+              </template>
             </el-table-column>
             <el-table-column prop="username" label="用户名称" width="120"/>
             <el-table-column prop="realname" label="用户实名" width="120"/>
@@ -72,7 +74,7 @@ export default {
       this.goTo('/user/user_add/new');
     },
     handleEdit(row) {
-      this.goTo('/user/user_add/' + row.roleId);
+      this.goTo('/user/user_add/' + row.userId);
     },
 
     handleDel(row) {

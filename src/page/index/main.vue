@@ -11,8 +11,8 @@
             active-text-color="#ffd04b"
          >
           <el-menu-item index="1">系统管理</el-menu-item>
-          <el-menu-item index="2" >订单管理</el-menu-item>
-          <el-menu-item index="3" >商品管理</el-menu-item>
+<!--          <el-menu-item index="2" >订单管理</el-menu-item>-->
+<!--          <el-menu-item index="3" >商品管理</el-menu-item>-->
           <el-menu-item index="4">统计分析</el-menu-item>
           <el-menu-item index="5">
 
@@ -38,26 +38,26 @@
                 <el-menu-item index="1-3"  @click="goTo('/org/org_list')">部门管理</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
-            <el-sub-menu index="2">
-              <template #title>
-                <el-icon> </el-icon>
-                <span>订单管理</span>
-              </template>
-              <el-menu-item-group >
-                <el-menu-item index="2-1">订单查询</el-menu-item>
-              </el-menu-item-group>
+<!--            <el-sub-menu index="2">-->
+<!--              <template #title>-->
+<!--                <el-icon> </el-icon>-->
+<!--                <span>订单管理</span>-->
+<!--              </template>-->
+<!--              <el-menu-item-group >-->
+<!--                <el-menu-item index="2-1">订单查询</el-menu-item>-->
+<!--              </el-menu-item-group>-->
 
-            </el-sub-menu>
-            <el-sub-menu index="3">
-              <template #title>
-                <el-icon> </el-icon>
-                <span>商品管理</span>
-              </template>
-              <el-menu-item-group >
-                <el-menu-item index="3-1">商品上架</el-menu-item>
-              </el-menu-item-group>
+<!--            </el-sub-menu>-->
+<!--            <el-sub-menu index="3">-->
+<!--              <template #title>-->
+<!--                <el-icon> </el-icon>-->
+<!--                <span>商品管理</span>-->
+<!--              </template>-->
+<!--              <el-menu-item-group >-->
+<!--                <el-menu-item index="3-1">商品上架</el-menu-item>-->
+<!--              </el-menu-item-group>-->
 
-            </el-sub-menu>
+<!--            </el-sub-menu>-->
           </el-menu>
         </el-aside>
         <el-main>
