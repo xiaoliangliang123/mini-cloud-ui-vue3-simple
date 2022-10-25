@@ -36,6 +36,7 @@
                 <el-menu-item index="1-1" @click="goTo('/user/user_list')">用户管理</el-menu-item>
                 <el-menu-item index="1-2"  @click="goTo('/role/user_role_list')">角色管理</el-menu-item>
                 <el-menu-item index="1-3"  @click="goTo('/org/org_list')">部门管理</el-menu-item>
+                <el-menu-item index="1-4"  @click="goTo('/menu/menu_list')">菜单管理</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
 <!--            <el-sub-menu index="2">-->

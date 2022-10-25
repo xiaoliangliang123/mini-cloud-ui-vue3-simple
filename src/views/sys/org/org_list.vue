@@ -11,7 +11,7 @@
           <span class="custom-tree-node">
             <span><el-tag effect="plain">{{ node.label }}</el-tag></span>
 
-        </span>
+          </span>
           </template>
         </el-tree>
       </el-aside>
