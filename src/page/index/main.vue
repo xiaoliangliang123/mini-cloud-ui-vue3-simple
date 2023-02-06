@@ -75,8 +75,10 @@
 
 <script>
 import store from "@/store"
+import { useRouter } from 'vue-router'
 
 export default {
+  name:"main-view",
   data() {
     return {
       active: "1",
@@ -100,7 +102,11 @@ export default {
     }
 
   },
+  mounted() {
+    const Router = useRouter();
+    console.log(Router.options.routes)
 
+  },
   created() {
 
     if(store.state.user.userInfo.username!=null){
