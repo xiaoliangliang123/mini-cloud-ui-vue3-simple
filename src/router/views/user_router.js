@@ -18,10 +18,16 @@ export default [
                         component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/role/user_role_list')
                     },
                     {
-                        tag:'menu',
+                        tag:'button',
                         path: '/role/user_role_add/:roleId',
                         name: '角色添加/编辑',
                         component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/role/user_role_edit')
+                    },
+                    {
+                        tag:'button',
+                        path: '/role/user_role_perms/:roleId',
+                        name: '权限编辑',
+                        component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/role/user_role_perms')
                     },
                     {
                         tag:'menu',
@@ -36,7 +42,7 @@ export default [
                         component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/user/user_list')
                     },
                     {
-                        tag:'menu',
+                        tag:'button',
                         path: '/user/user_add/:userId',
                         name: '用户添加',
                         component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/user/user_edit')
@@ -48,7 +54,7 @@ export default [
                         component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/menu/menu_list')
                     },
                     {
-                        tag:'menu',
+                        tag:'button',
                         path: '/menu/menu_edit/:editId',
                         name: '菜单编辑',
                         component: () => import ( /* webpackChunkName: "page" */ '@/views/sys/menu/menu_edit')

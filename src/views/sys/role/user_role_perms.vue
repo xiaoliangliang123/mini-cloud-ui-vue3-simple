@@ -1,9 +1,11 @@
 <template>
+
   <div class="common-layout">
     <el-container>
       <el-main>
 
         <el-tree
+            show-checkbox
             class="filter-tree"
             default-expand-all
             ref="treeRef"
@@ -22,17 +24,17 @@
         </span>
           </template>
         </el-tree>
+
       </el-main>
     </el-container>
   </div>
-
 </template>
 
 <script>
 import {useRouter} from 'vue-router'
 
 export default {
-  name: "menu_list",
+  name: "user_role_perms",
   data() {
     return {
 
@@ -51,20 +53,19 @@ export default {
       return false
     }
   },
-
   created() {
-    let that = this;
     const Router = useRouter();
     console.log(Router.options.routes)
     this.data = Router.options.routes;
-    setTimeout(function () {
-      that.$refs.treeRef.filter("");
-    }, 200);
   },
+  mounted() {
+    this.$refs.treeRef.filter("");
 
+  }
 }
 </script>
 
 <style scoped>
+
 
 </style>

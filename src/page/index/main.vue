@@ -13,7 +13,7 @@
           <el-menu-item index="1">系统管理</el-menu-item>
 <!--          <el-menu-item index="2" >订单管理</el-menu-item>-->
 <!--          <el-menu-item index="3" >商品管理</el-menu-item>-->
-          <el-menu-item index="4">统计分析</el-menu-item>
+          <el-menu-item index="4">统计监控</el-menu-item>
           <el-menu-item index="5">
 
                 <span v-if="username=='游客'"><router-link to="/login">登录</router-link></span>
