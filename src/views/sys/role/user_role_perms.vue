@@ -24,6 +24,10 @@
         </span>
           </template>
         </el-tree>
+        <div>
+          <el-button type="primary" @click="saveOrEdit()">保存</el-button>
+          <el-button type="success" @click="backToList()">返回</el-button>
+        </div>
 
       </el-main>
     </el-container>
@@ -32,6 +36,7 @@
 
 <script>
 import {useRouter} from 'vue-router'
+import {saveOrEdit} from "@/api/sys/perms"
 
 export default {
   name: "user_role_perms",
@@ -42,8 +47,8 @@ export default {
         children: 'children',
         label: 'name'
       },
-      data: null
-
+      data: null,
+      roleId:null
     }
   },
   methods: {
@@ -51,9 +56,25 @@ export default {
 
       if (data.tag != 'indefined' & data.tag != null) return true
       return false
-    }
+    },
+    saveOrEdit(){
+
+      let checkedNodes = this.$refs.treeRef.getCheckedNodes();
+      let halfChckedNodes = this.$refs.treeRef.getHalfCheckedNodes();
+      let allCheckedNodes = checkedNodes.concat(halfChckedNodes);
+
+      saveOrEdit(this.roleId,allCheckedNodes).then(res=>{
+        console.log(res);
+      }).catch(err=>{
+         console.log(err);
+      });
+    },
+    backToList() {
+      this.$router.push('/role/user_role_list');
+    },
   },
   created() {
+    this.roleId = this.$route.params.roleId;
     const Router = useRouter();
     console.log(Router.options.routes)
     this.data = Router.options.routes;

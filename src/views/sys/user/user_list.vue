@@ -19,8 +19,6 @@
             <el-table-column fixed="right" label="操作" width="220">
               <template #default="scope" >
                 <el-button link type="primary" size="small" @click="handleEdit(scope.row)">编辑</el-button>
-                <el-button link type="primary" size="small" @click="handlePerms(scope.row)">权限</el-button>
-
                 <el-button link type="primary" size="small" @click="handleDel(scope.row)">删除</el-button>
               </template>
             </el-table-column>
