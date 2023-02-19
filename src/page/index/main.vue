@@ -9,15 +9,17 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"
-         >
-          <el-menu-item index="1">系统管理</el-menu-item>
-<!--          <el-menu-item index="2" >订单管理</el-menu-item>-->
-<!--          <el-menu-item index="3" >商品管理</el-menu-item>-->
-          <el-menu-item index="4">统计监控</el-menu-item>
-          <el-menu-item index="5">
+        >
+          <el-menu-item :key="index" v-for="(item,index) in topMenus" :index="index" @click="topMenu(item)">
+            {{ item.name }}
+          </el-menu-item>
+          <!--          <el-menu-item index="2" >订单管理</el-menu-item> -->
+          <!--          <el-menu-item index="3" >商品管理</el-menu-item>-->
+          <!--          <el-menu-item index="4">统计监控</el-menu-item>-->
+          <el-menu-item index="10">
 
-                <span v-if="username=='游客'"><router-link to="/login">登录</router-link></span>
-                <span v-if="username!='游客'" @click="logout" style="color:#2d8cf0;text-decoration-line: underline">退出</span>
+            <span v-if="username=='游客'"><router-link to="/login">登录</router-link></span>
+            <span v-if="username!='游客'" @click="logout" style="color:#2d8cf0;text-decoration-line: underline">退出</span>
 
           </el-menu-item>
         </el-menu>
@@ -27,38 +29,17 @@
           <el-menu
               default-active="1"
               class="el-menu-vertical-demo">
-            <el-sub-menu index="1">
+            <el-sub-menu :index="subIndex" v-for="(subMenu,subIndex) in leftMenus" :key="subIndex">
               <template #title>
-                <el-icon> </el-icon>
-                <span>系统管理</span>
+                <el-icon></el-icon>
+                <span>{{ subMenu.name }}</span>
+
               </template>
-              <el-menu-item-group >
-                <el-menu-item index="1-1" @click="goTo('/user/user_list')">用户管理</el-menu-item>
-                <el-menu-item index="1-2"  @click="goTo('/role/user_role_list')">角色管理</el-menu-item>
-                <el-menu-item index="1-3"  @click="goTo('/org/org_list')">部门管理</el-menu-item>
-                <el-menu-item index="1-4"  @click="goTo('/menu/menu_list')">菜单管理</el-menu-item>
+              <el-menu-item-group>
+                <el-menu-item  :index="index" v-for="(menu,index) in subMenu.children" :key="index" @click="goTo(menu)" >{{ menu.name }}</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
-<!--            <el-sub-menu index="2">-->
-<!--              <template #title>-->
-<!--                <el-icon> </el-icon>-->
-<!--                <span>订单管理</span>-->
-<!--              </template>-->
-<!--              <el-menu-item-group >-->
-<!--                <el-menu-item index="2-1">订单查询</el-menu-item>-->
-<!--              </el-menu-item-group>-->
 
-<!--            </el-sub-menu>-->
-<!--            <el-sub-menu index="3">-->
-<!--              <template #title>-->
-<!--                <el-icon> </el-icon>-->
-<!--                <span>商品管理</span>-->
-<!--              </template>-->
-<!--              <el-menu-item-group >-->
-<!--                <el-menu-item index="3-1">商品上架</el-menu-item>-->
-<!--              </el-menu-item-group>-->
-
-<!--            </el-sub-menu>-->
           </el-menu>
         </el-aside>
         <el-main>
@@ -75,17 +56,20 @@
 
 <script>
 import store from "@/store"
-import { useRouter } from 'vue-router'
+import {useRouter} from 'vue-router'
 
 export default {
-  name:"main-view",
+  name: "main-view",
   data() {
     return {
       active: "1",
-      username:'游客'
+      username: '游客',
+      topMenus: [],
+      currentTopMenu: null,
+      leftMenus: []
     }
   },
-  methods:{
+  methods: {
     logout() {
       this.$confirm("是否退出系统, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -97,19 +81,30 @@ export default {
         });
       });
     },
-    goTo(path){
-      this.$router.push(path);
+    topMenu(item) {
+
+      this.currentTopMenu = item;
+      this.leftMenus = this.currentTopMenu.children;
+    },
+    goTo(item) {
+      this.$router.push(item.path);
     }
 
   },
   mounted() {
+
     const Router = useRouter();
-    console.log(Router.options.routes)
+    console.log(Router.options.routes);
+    this.topMenus = Router.options.routes.filter(function (item) {
+      return (item.tag != 'indefined' && item.tag == 'top');
+    })
+    this.currentTopMenu = this.topMenus[0];
+    this.leftMenus = this.currentTopMenu.children;
 
   },
   created() {
 
-    if(store.state.user.userInfo.username!=null){
+    if (store.state.user.userInfo.username != null) {
       this.username = store.state.user.userInfo.username
     }
   }

@@ -37,6 +37,7 @@
 <script>
 import {useRouter} from 'vue-router'
 import {saveOrEdit} from "@/api/sys/perms"
+import {ElNotification} from "element-plus";
 
 export default {
   name: "user_role_perms",
@@ -64,6 +65,22 @@ export default {
       let allCheckedNodes = checkedNodes.concat(halfChckedNodes);
 
       saveOrEdit(this.roleId,allCheckedNodes).then(res=>{
+
+        if(res.data.code ==0){
+          ElNotification({
+            title: '',
+            message: "操作成功",
+            position: 'bottom-right',
+            type: 'success'
+          })
+        }else {
+          ElNotification({
+            title: '',
+            message: res.data.msg,
+            position: 'bottom-right',
+            type: 'success'
+          })
+        }
         console.log(res);
       }).catch(err=>{
          console.log(err);
