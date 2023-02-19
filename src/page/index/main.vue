@@ -36,7 +36,7 @@
 
               </template>
               <el-menu-item-group>
-                <el-menu-item  :index="index" v-for="(menu,index) in subMenu.children" :key="index" @click="goTo(menu)" >{{ menu.name }}</el-menu-item>
+                <el-menu-item  :index="index" v-for="(menu,index) in filterSubMenu(subMenu.children)" :key="index" @click="goTo(menu)" >{{ menu.name }}</el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
 
@@ -88,6 +88,12 @@ export default {
     },
     goTo(item) {
       this.$router.push(item.path);
+    },
+    filterSubMenu(subMenus){
+
+      return subMenus.filter(function(subMenu){
+        return subMenu.tag != 'indefined'&&subMenu.tag =='menu';
+      });
     }
 
   },
