@@ -20,7 +20,7 @@ import qs from 'qs'
 
 const scope = 'read'
 
-export const loginByUsername = (uname, pwd) => {
+export const loginByUsername = (uname,tenant, pwd) => {
 
   const username = uname;
   const password = pwd;
@@ -32,7 +32,7 @@ export const loginByUsername = (uname, pwd) => {
       isToken: false
     },
     method: 'post',
-    url: '/tenant-1-login/tenant/login',
+    url: '/tenant-'+tenant+'-login/tenant/login',
     data:dataObj,
   })
 

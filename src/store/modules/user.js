@@ -25,11 +25,13 @@ const user = {
   actions: {
     // 根据用户名登录
     LoginByUsername({commit}, userInfo) {
-      return new Promise((resolve, reject) => {
-        loginByUsername(userInfo.username, userInfo.password).then(response => {
 
+
+      return new Promise((resolve, reject) => {
+        loginByUsername(userInfo.username, userInfo.tenant,userInfo.password).then(response => {
 
           const data = response.data
+          console.log(data)
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
           commit('SET_USER_INFO', data.user_info)

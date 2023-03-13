@@ -3,13 +3,15 @@
     <el-container>
       <el-header>
         <el-menu
+            class="top-menu"
             :default-active="active"
-            class="el-menu-demo"
             mode="horizontal"
-            background-color="#545c64"
-            text-color="#fff"
+            background-color="#FEFCFF"
             active-text-color="#ffd04b"
         >
+          <el-menu-item >
+            <el-image style="width: 150px;height: 50px" :src="miniCloudLogo"></el-image>
+          </el-menu-item>
           <el-menu-item :key="index" v-for="(item,index) in topMenus" :index="index" @click="topMenu(item)">
             {{ item.name }}
           </el-menu-item>
@@ -50,6 +52,9 @@
 
         </el-main>
       </el-container>
+      <el-footer class="foot-menu">
+        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0</span>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -63,6 +68,7 @@ export default {
   data() {
     return {
       active: "1",
+      miniCloudLogo:require('@/assets/mini-cloud-logo.png'),
       username: '游客',
       topMenus: [],
       currentTopMenu: null,
@@ -116,4 +122,24 @@ export default {
   }
 }
 </script>
+
+<style>
+.top-menu{
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+.foot-menu{
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: #FEFCFF;
+  color: cornflowerblue;
+  font-family: "Arial Black";
+}
+</style>
 
