@@ -38,7 +38,7 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="tenantOption" class="m-2" placeholder="Select" size="large">
+          <el-select default-first-option v-model="tenantOption.value" class="m-2" placeholder="Select" size="large" @change="selectTenantOption">
             <el-option
                 v-for="item in tenantOptions"
                 :key="item.value"
@@ -115,6 +115,9 @@ export default {
   },
   methods: {
 
+    selectTenantOption(){
+       console.log(this.tenantOption.value);
+    },
     showPassword() {
       this.passwordType == ""
           ? (this.passwordType = "password")

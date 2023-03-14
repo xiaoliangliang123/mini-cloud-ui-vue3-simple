@@ -53,7 +53,7 @@
         </el-main>
       </el-container>
       <el-footer class="foot-menu">
-        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0</span>
+        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户2</span>
       </el-footer>
     </el-container>
   </div>
