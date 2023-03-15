@@ -70,7 +70,6 @@ export default {
 
       tenantOption:{
         value: '1',
-        label: '租戶1',
       },
       tenantOptions :[
         {

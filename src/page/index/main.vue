@@ -53,7 +53,7 @@
         </el-main>
       </el-container>
       <el-footer class="foot-menu">
-        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户2</span>
+        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户{{tenantId}}</span>
       </el-footer>
     </el-container>
   </div>
@@ -67,6 +67,7 @@ export default {
   name: "main-view",
   data() {
     return {
+      tenantId:0,
       active: "1",
       miniCloudLogo:require('@/assets/mini-cloud-logo.png'),
       username: '游客',
@@ -118,6 +119,7 @@ export default {
 
     if (store.state.user.userInfo.username != null) {
       this.username = store.state.user.userInfo.username
+      this.tenantId= store.state.user.userInfo.tenantId
     }
   }
 }
