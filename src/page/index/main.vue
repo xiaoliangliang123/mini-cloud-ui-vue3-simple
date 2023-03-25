@@ -9,7 +9,7 @@
             background-color="#FEFCFF"
             active-text-color="#ffd04b"
         >
-          <el-menu-item >
+          <el-menu-item>
             <el-image style="width: 150px;height: 50px" :src="miniCloudLogo"></el-image>
           </el-menu-item>
           <el-menu-item :key="index" v-for="(item,index) in topMenus" :index="index" @click="topMenu(item)">
@@ -38,7 +38,9 @@
 
               </template>
               <el-menu-item-group>
-                <el-menu-item  :index="index" v-for="(menu,index) in filterSubMenu(subMenu.children)" :key="index" @click="goTo(menu)" >{{ menu.name }}</el-menu-item>
+                <el-menu-item :index="index" v-for="(menu,index) in filterSubMenu(subMenu.children)" :key="index"
+                              @click="goTo(menu)">{{ menu.name }}
+                </el-menu-item>
               </el-menu-item-group>
             </el-sub-menu>
 
@@ -53,7 +55,7 @@
         </el-main>
       </el-container>
       <el-footer class="foot-menu">
-        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户{{tenantId}}</span>
+        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户{{ tenantId }}</span>
       </el-footer>
     </el-container>
   </div>
@@ -67,9 +69,9 @@ export default {
   name: "main-view",
   data() {
     return {
-      tenantId:0,
+      tenantId: 0,
       active: "1",
-      miniCloudLogo:require('@/assets/mini-cloud-logo.png'),
+      miniCloudLogo: require('@/assets/mini-cloud-logo.png'),
       username: '游客',
       topMenus: [],
       currentTopMenu: null,
@@ -96,44 +98,60 @@ export default {
     goTo(item) {
       this.$router.push(item.path);
     },
-    filterSubMenu(subMenus){
-
-      return subMenus.filter(function(subMenu){
-        return subMenu.tag != 'indefined'&&subMenu.tag =='menu';
+    filterSubMenu(subMenus) {
+      let authoritiesPaths = [];
+      if(store.state.user.userInfo.authorities ==null|| store.state.user.userInfo.authorities =='undefined'){
+        return ;
+      }
+      store.state.user.userInfo.authorities.forEach(function(item){
+        authoritiesPaths.push(item.url);
       });
+      let smenus = subMenus.filter(function (subMenu) {
+        return  authoritiesPaths.indexOf(subMenu.path) !=-1&& subMenu.tag != 'indefined' && subMenu.tag == 'menu';
+      });
+      console.log(smenus);
+      return smenus;
     }
 
   },
   mounted() {
 
     const Router = useRouter();
-    console.log(Router.options.routes);
+    console.log(store.state.user.userInfo.authorities);
+    let authoritiesPaths = [];
+    store.state.user.userInfo.authorities.forEach(function(item){
+       authoritiesPaths.push(item.url);
+    });
     this.topMenus = Router.options.routes.filter(function (item) {
-      return (item.tag != 'indefined' && item.tag == 'top');
+      return (authoritiesPaths.indexOf(item.path) !=-1&& item.tag != 'indefined' && item.tag == 'top');
     })
     this.currentTopMenu = this.topMenus[0];
-    this.leftMenus = this.currentTopMenu.children;
+    this.leftMenus = this.currentTopMenu.children.filter(function (item){
+      return (authoritiesPaths.indexOf(item.path) !=-1);
+    });
+
 
   },
   created() {
 
     if (store.state.user.userInfo.username != null) {
       this.username = store.state.user.userInfo.username
-      this.tenantId= store.state.user.userInfo.tenantId
+      this.tenantId = store.state.user.userInfo.tenantId
     }
   }
 }
 </script>
 
 <style>
-.top-menu{
+.top-menu {
   position: fixed;
   width: 100%;
   left: 0;
   top: 0;
   z-index: 1000;
 }
-.foot-menu{
+
+.foot-menu {
   position: fixed;
   width: 100%;
   left: 0;

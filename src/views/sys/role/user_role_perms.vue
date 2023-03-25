@@ -100,7 +100,6 @@ export default {
     let that = this;
     params.roleIds = roleIds;
     const Router = useRouter();
-    console.log(Router.options.routes);
     that.data = Router.options.routes;
 
     queryPerms(params).then(res => {
