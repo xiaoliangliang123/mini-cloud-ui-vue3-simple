@@ -55,7 +55,9 @@
         </el-main>
       </el-container>
       <el-footer class="foot-menu">
-        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户{{ tenantId }}</span>
+        <span style="font-size: 22px;  max-width: 100%;margin-left: 30%">mini-cloud saas框架前端demo . VERSION: 1.0.0.0,当前登录归属：租户{{
+            tenantId
+          }}</span>
       </el-footer>
     </el-container>
   </div>
@@ -100,14 +102,19 @@ export default {
     },
     filterSubMenu(subMenus) {
       let authoritiesPaths = [];
-      if(store.state.user.userInfo.authorities ==null|| store.state.user.userInfo.authorities =='undefined'){
-        return ;
+      if (store.state.user.userInfo.authorities == null || store.state.user.userInfo.authorities == 'undefined') {
+        return;
       }
-      store.state.user.userInfo.authorities.forEach(function(item){
+      store.state.user.userInfo.authorities.forEach(function (item) {
         authoritiesPaths.push(item.url);
       });
       let smenus = subMenus.filter(function (subMenu) {
-        return  authoritiesPaths.indexOf(subMenu.path) !=-1&& subMenu.tag != 'indefined' && subMenu.tag == 'menu';
+        if (store.state.user.userInfo.roleCodes.indexOf("SUPER_ADMIN") > -1) {
+          return  subMenu.tag != 'indefined' && subMenu.tag == 'menu';
+        }else {
+          return authoritiesPaths.indexOf(subMenu.path) != -1 && subMenu.tag != 'indefined' && subMenu.tag == 'menu';
+
+        }
       });
       console.log(smenus);
       return smenus;
@@ -117,28 +124,37 @@ export default {
   mounted() {
 
     const Router = useRouter();
-    console.log(store.state.user.userInfo.authorities);
     let authoritiesPaths = [];
-    store.state.user.userInfo.authorities.forEach(function(item){
-       authoritiesPaths.push(item.url);
+    store.state.user.userInfo.authorities.forEach(function (item) {
+      authoritiesPaths.push(item.url);
     });
     this.topMenus = Router.options.routes.filter(function (item) {
-      return (authoritiesPaths.indexOf(item.path) !=-1&& item.tag != 'indefined' && item.tag == 'top');
+
+      console.log(store.state.user.userInfo.roleCodes);
+      if (store.state.user.userInfo.roleCodes.indexOf("SUPER_ADMIN") > -1) {
+        debugger
+        return (item.tag != 'indefined' && item.tag == 'top');
+      }
+      return (authoritiesPaths.indexOf(item.path) != -1 && item.tag != 'indefined' && item.tag == 'top');
     })
     this.currentTopMenu = this.topMenus[0];
-    this.leftMenus = this.currentTopMenu.children.filter(function (item){
-      return (authoritiesPaths.indexOf(item.path) !=-1);
+    if (store.state.user.userInfo.roleCodes.indexOf("SUPER_ADMIN") > -1) {
+      this.leftMenus = this.currentTopMenu.children;
+    } else {
+      this.leftMenus = this.currentTopMenu.children.filter(function (item) {
+        return (authoritiesPaths.indexOf(item.path) != -1);
     });
-
-
-  },
-  created() {
-
-    if (store.state.user.userInfo.username != null) {
-      this.username = store.state.user.userInfo.username
-      this.tenantId = store.state.user.userInfo.tenantId
-    }
   }
+}
+,
+created()
+{
+
+  if (store.state.user.userInfo.username != null) {
+    this.username = store.state.user.userInfo.username
+    this.tenantId = store.state.user.userInfo.tenantId
+  }
+}
 }
 </script>
 
