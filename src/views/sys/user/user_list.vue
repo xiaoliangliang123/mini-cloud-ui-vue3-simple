@@ -92,7 +92,7 @@ export default {
           }
       )
           .then(() => {
-            del(row.roleId).then(response => {
+            del(row.userId).then(response => {
 
               if (response.status == 200) {
                 that.success('删除成功');

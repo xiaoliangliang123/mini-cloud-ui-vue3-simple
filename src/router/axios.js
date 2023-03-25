@@ -1,7 +1,7 @@
 import axios from "axios";
 import {serialize} from "@/util/util";
 import NProgress from "nprogress"; // progress bar
-import errorCode from "@/const/errorCode";
+import errorCode from "@/api/errorCode";
 import {ElMessage, ElMessageBox} from "element-plus";
 import "nprogress/nprogress.css";
 import qs from "qs";

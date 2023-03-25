@@ -8,3 +8,11 @@ export function saveOrEdit(roleId,obj) {
         data: obj
     })
 }
+
+export function queryPerms(query) {
+    return request({
+        url: '/upms/perms/',
+        method: 'get',
+        params: query
+    })
+}

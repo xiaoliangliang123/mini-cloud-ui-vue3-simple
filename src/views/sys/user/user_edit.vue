@@ -195,7 +195,7 @@ export default {
 
     },
     handleAvatarSuccess(response) {
-      debugger
+
       this.imageUrl = '/files/files?filename=' + response;
       this.userForm.headimg = response;
     },

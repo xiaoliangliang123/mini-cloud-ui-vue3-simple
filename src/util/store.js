@@ -1,9 +1,8 @@
 import {
   validatenull
 } from '@/util/validate'
-import website from '@/const/website'
 
-const keyName = website.key + '-';
+const keyName = "minicloud" + '-';
 /**
  * 存储localStorage
  */

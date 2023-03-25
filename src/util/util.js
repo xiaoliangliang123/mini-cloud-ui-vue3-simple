@@ -82,22 +82,7 @@ export const diff = (obj1, obj2) => {
   }
   return true;
 };
-/**
- * 设置灰度模式
- */
-export const toggleGrayMode = status => {
-  if (status) {
-    document.body.className = document.body.className + " grayMode";
-  } else {
-    document.body.className = document.body.className.replace(" grayMode", "");
-  }
-};
-/**
- * 设置主题
- */
-export const setTheme = name => {
-  document.body.className = name;
-};
+
 
 /**
  *加密处理
@@ -211,67 +196,7 @@ export const findParent = (menu, id) => {
   }
 };
 
-/**
- * 动态插入css
- */
 
-export const loadStyle = url => {
-  const link = document.createElement("link");
-  link.type = "text/css";
-  link.rel = "stylesheet";
-  link.href = url;
-  const head = document.getElementsByTagName("head")[0];
-  head.appendChild(link);
-};
-/**
- * 判断路由是否相等
- */
-export const isObjectValueEqual = (a, b) => {
-  let result = true;
-  Object.keys(a).forEach(ele => {
-    const type = typeof a[ele];
-    if (type === "string" && a[ele] !== b[ele]) result = false;
-    else if (
-      type === "object" &&
-      JSON.stringify(a[ele]) !== JSON.stringify(b[ele])
-    )
-      result = false;
-  });
-  return result;
-};
-/**
- * 根据字典的value显示label
- */
-export const findByvalue = (dic, value) => {
-  let result = "";
-  if (validatenull(dic)) return value;
-  if (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean"
-  ) {
-    let index = 0;
-    index = findArray(dic, value);
-    if (index != -1) {
-      result = dic[index].label;
-    } else {
-      result = value;
-    }
-  } else if (value instanceof Array) {
-    result = [];
-    let index = 0;
-    value.forEach(ele => {
-      index = findArray(dic, ele);
-      if (index != -1) {
-        result.push(dic[index].label);
-      } else {
-        result.push(value);
-      }
-    });
-    result = result.toString();
-  }
-  return result;
-};
 /**
  * 根据字典的value查找对应的index
  */

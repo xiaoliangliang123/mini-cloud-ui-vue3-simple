@@ -75,19 +75,6 @@ const user = {
         })
       })
     },
-    // 注销session
-    FedLogOut({commit}) {
-      return new Promise(resolve => {
-        commit('SET_MENU', [])
-        commit('SET_PERMISSIONS', [])
-        commit('SET_USER_INFO', {})
-        commit('SET_ACCESS_TOKEN', '')
-        commit('SET_REFRESH_TOKEN', '')
-        commit('SET_ROLES', [])
-        commit('CLEAR_LOCK')
-        resolve()
-      })
-    },
 
 
   },
