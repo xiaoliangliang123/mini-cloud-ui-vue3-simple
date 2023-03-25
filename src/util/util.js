@@ -1,4 +1,3 @@
-import {validatenull} from "./validate";
 import request from "@/router/axios";
 import * as CryptoJS from "crypto-js";
 

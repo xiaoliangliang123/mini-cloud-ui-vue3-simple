@@ -5,6 +5,7 @@
       <el-main>
 
         <el-tree
+            node-key="path"
             show-checkbox
             class="filter-tree"
             default-expand-all
@@ -36,7 +37,7 @@
 
 <script>
 import {useRouter} from 'vue-router'
-import {saveOrEdit} from "@/api/sys/perms"
+import {saveOrEdit, queryPerms} from "@/api/sys/perms"
 import {ElNotification} from "element-plus";
 
 export default {
@@ -44,36 +45,37 @@ export default {
   data() {
     return {
 
+      checkedKeys: [],
       defaultProps: {
         children: 'children',
         label: 'name'
       },
       data: null,
-      roleId:null
+      roleId: null
     }
   },
   methods: {
     filterNode(value, data) {
-
+      debugger
       if (data.tag != 'indefined' & data.tag != null) return true
       return false
     },
-    saveOrEdit(){
+    saveOrEdit() {
 
       let checkedNodes = this.$refs.treeRef.getCheckedNodes();
       let halfChckedNodes = this.$refs.treeRef.getHalfCheckedNodes();
       let allCheckedNodes = checkedNodes.concat(halfChckedNodes);
 
-      saveOrEdit(this.roleId,allCheckedNodes).then(res=>{
+      saveOrEdit(this.roleId, allCheckedNodes).then(res => {
 
-        if(res.data.code ==0){
+        if (res.data.code == 0) {
           ElNotification({
             title: '',
             message: "操作成功",
             position: 'bottom-right',
             type: 'success'
           })
-        }else {
+        } else {
           ElNotification({
             title: '',
             message: res.data.msg,
@@ -82,8 +84,8 @@ export default {
           })
         }
         console.log(res);
-      }).catch(err=>{
-         console.log(err);
+      }).catch(err => {
+        console.log(err);
       });
     },
     backToList() {
@@ -91,15 +93,40 @@ export default {
     },
   },
   created() {
+
     this.roleId = this.$route.params.roleId;
+    let roleIds = [this.roleId];
+    let params = {};
+    let that = this;
+    params.roleIds = roleIds;
     const Router = useRouter();
-    console.log(Router.options.routes)
-    this.data = Router.options.routes;
+    console.log(Router.options.routes);
+    that.data = Router.options.routes;
+
+    queryPerms(params).then(res => {
+      res.data.data.forEach((item, index) => {
+        console.log(item.path)
+        let ars = item.path.split("/").filter(function (s) {
+          return s && s.trim();
+        });
+        if (ars.length > 1) {
+          that.checkedKeys[index] = item.path;
+        }
+      });
+
+      this.$refs.treeRef.setCheckedKeys(that.checkedKeys);
+      this.$refs.treeRef.filter("");
+
+    }).catch(err => {
+      console.log(err)
+    })
+
   },
   mounted() {
     this.$refs.treeRef.filter("");
 
   }
+
 }
 </script>
 
