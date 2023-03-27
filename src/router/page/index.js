@@ -12,7 +12,7 @@ export default [{
     {
         path: '/404',
         component: () =>
-            import ( /* webpackChunkName: "page" */ '@/page/error-page/404'),
+            import ( /* webpackChunkName: "page" */ '@/page/error/404'),
         name: '404',
         meta: {
             keepAlive: true,
@@ -24,7 +24,7 @@ export default [{
     {
         path: '/403',
         component: () =>
-            import ( /* webpackChunkName: "page" */ '@/page/error-page/403'),
+            import ( /* webpackChunkName: "page" */ '@/page/error/403'),
         name: '403',
         meta: {
             keepAlive: true,
@@ -35,7 +35,7 @@ export default [{
     {
         path: '/500',
         component: () =>
-            import ( /* webpackChunkName: "page" */ '@/page/error-page/500'),
+            import ( /* webpackChunkName: "page" */ '@/page/error/500'),
         name: '500',
         meta: {
             keepAlive: true,
